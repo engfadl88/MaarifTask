@@ -1,0 +1,84 @@
+﻿@model IEnumerable<News.Service.ViewModels.NewsViewModel>
+
+@using News.Resources
+
+@{
+    ViewBag.Title = NewsResources.NewsList;
+}
+
+<div style="text-align:right">
+    @Html.ActionLink(@NewsResources.NewsAdd, "Add", "News", new { area = "" }, new { @class = "btn btn-primary read-m" })
+</div>
+<h3 class="tittle">@NewsResources.NewsList</h3>
+
+<ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active lnkAll" href="#">@NewsResources.all</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active lnkMonth" href="#">@NewsResources.month</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active lnkWeek" href="#">@NewsResources.week</a>
+    </li>
+</ul>
+
+<div class="inner-sec">
+
+    <div class="left-blog-info-w3layouts-agileits text-left ">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 divCards @("card" + item.currentPeriod)">
+                    <a href="/News/Details/@item.Id">
+                        <img src="/images/@item.NewsImage" class="card-img-top img-fluid" alt="">
+                    </a>
+                    <div class="card-body">
+                        <ul class="blog-icons my-4">
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-calendar-alt"></i> @item.CreatedOn.ToString("dd MMMM yyyy")
+                                </a>
+                            </li>
+                            <li class="mx-2">
+                                <a href="#">
+                                    <i class="far fa-comment"></i>  @item.CreatedBy
+                                </a>
+                            </li>
+                        </ul>
+                        <h5 class="card-title">
+                            <a href="/News/Details/@item.Id">@item.NewsTitle</a>
+                        </h5>
+                        <p class="card-text mb-3">
+                            @Html.Raw(item.NewsDetails.Length > 180 ? item.NewsDetails.Substring(0, 180) + "..." : item.NewsDetails)
+                        </p>
+                        <a href="/News/Details/@item.Id" class="btn btn-primary read-m">Read More</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section  Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".lnkAll").click(function (e) {
+                e.preventDefault();
+                location.reload();
+            });
+
+            $(".lnkMonth").click(function (e) {
+                e.preventDefault();
+                $('.divCards').show().filter(':not(.cardmonth)').hide();
+            });
+
+            $(".lnkWeek").click(function (e) {
+                e.preventDefault();
+                $('.divCards').show().filter(':not(.cardweek)').hide();
+            });
+        });
+    </script>
+
+}

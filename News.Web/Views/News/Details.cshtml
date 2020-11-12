@@ -1,0 +1,60 @@
+﻿@model News.Service.ViewModels.NewsViewModel
+
+@{
+    ViewBag.Title = "News Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-8 offset-2">
+        <div class="blog-grid-top">
+            <div class="b-grid-top">
+                <div class="blog_info_left_grid">
+                    <a href="single.html">
+                        <img src="/images/@Model.NewsImage" class="img-fluid details" alt="">
+                    </a>
+                </div>
+                <div class="blog-info-middle">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="far fa-calendar-alt"></i> @Model.CreatedOn.ToString("dd MMMM yyyy")
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="far fa-comment"></i> @Model.CreatedBy
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <h3>
+                <a href="#">@Model.NewsTitle </a>
+            </h3>
+            <p>
+                @Html.Raw(Model.NewsDetails)
+            </p>
+            <a href="/News/Add" class="btn btn-primary read-m">Add New</a>
+            <a href="#" class="btn btn-info read-m btnEdit">Edit</a>
+            <a href="#" class="btn btn-danger read-m btnDelete">Delete</a>
+        </div>
+    </div>
+</div>
+
+@section  Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btnEdit").click(function () {
+                alert("Not Included in Task Requirements");
+            });
+            $(".btnDelete").click(function () {
+                alert("Not Included in Task Requirements");
+            });
+        });
+    </script>
+
+}
